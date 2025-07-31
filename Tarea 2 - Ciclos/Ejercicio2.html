@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promedio de Calificaciones</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding-top: 50px;
+    }
+    .container {
+      max-width: 500px;
+    }
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h2 class="mb-4">Promedio de Calificaciones</h2>
+    <button class="btn btn-primary" onclick="calcularPromedio()">Ingresar Calificaciones</button>
+    <div id="resultado" class="alert alert-secondary d-none"></div>
+  </div>
+
+  <script>
+    function calcularPromedio() {
+      let suma = 0;
+      let cantidad = 4;
+
+      for (let i = 1; i <= cantidad; i++) {
+        let nota;
+
+        do {
+          nota = prompt(`Ingresa la calificación #${i} (0 a 100):`);
+          if (nota === null) return; // Cancelado
+          nota = parseFloat(nota);
+        } while (isNaN(nota) || nota < 0 || nota > 100);
+
+        suma += nota;
+      }
+
+      const promedio = suma / cantidad;
+      let mensaje = `El promedio es: ${promedio.toFixed(2)}. `;
+
+      if (promedio >= 61) {
+        mensaje += "¡Aprobado!";
+        mostrarResultado(mensaje, "success");
+      } else {
+        mensaje += "Reprobado.";
+        mostrarResultado(mensaje, "danger");
+      }
+    }
+
+    function mostrarResultado(mensaje, tipo) {
+      const resultado = document.getElementById('resultado');
+      resultado.textContent = mensaje;
+      resultado.className = `alert alert-${tipo}`;
+      resultado.classList.remove('d-none');
+    }
+  </script>
+</body>
+</html>
